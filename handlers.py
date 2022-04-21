@@ -26,3 +26,19 @@ class handlers:
         loadedCSV=pd.read_csv(pathStr)
         return loadedCSV
     
+    def doubleJoinByNewKey(self,mainDF,df2,keyCol):
+        # keyCol is a string
+        mainDF=mainDF.set_index(keyCol)
+        df2=df2.set_index(keyCol)
+        joinedDF=mainDF.join(df2,how="outer")
+        return joinedDF
+    
+    def tripleJoinByNewKey(self,mainDF,df2,df3,keyCol,strDF2,strDF3):
+        # keyCol is a string
+        mainDF=mainDF.set_index(keyCol)
+        df2=df2.set_index(keyCol)
+        df3=df3.set_index(keyCol)
+        joinedDF=mainDF.join(df2,how="outer")
+        joinedDF=joinedDF.join(df3,how="outer",lsuffix=strDF2,rsuffix=strDF3)
+        return joinedDF
+    
