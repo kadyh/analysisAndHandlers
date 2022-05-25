@@ -29,10 +29,17 @@ class budgeting:
         else:
             print('payType invalid')
             return
-        fedDeduction=12550
+        fedDeduction=12950
         caDeduction=4601
-        fedTaxableIncome=salary-fedDeduction-perc401k-healthIns-dentalIns-eyeIns
-        stateTaxableIncome=salary-caDeduction
+        ssMonthly=monthly*ss
+        ssAnnual=salary*ss
+        medicareAnnual=salary*medicare
+        medicareMonthly=monthly*medicare
+        monthly401k=monthly*perc401k
+        caUnemploymentAnnual=salary*caUnemp
+        caUnemploymentMonthly=monthly*caUnemp
+        fedTaxableIncome=salary-fedDeduction-perc401k*salary-healthIns*12-dentalIns*12-eyeIns*12-ssAnnual-medicareAnnual
+        stateTaxableIncome=salary-caDeduction-caUnemploymentAnnual
         if fedTaxableIncome<=9950:
             fedTax=salary*.1
         elif fedTaxableIncome>9950 and fedTaxableIncome<=40525:
@@ -57,10 +64,6 @@ class budgeting:
             stateTax=2695.19+0.093*(stateTaxableIncome-61214)
         monthlyFedTax=fedTax/12
         monthlyStateTax=stateTax/12
-        caUnemployment=monthly*caUnemp
-        medicareCost=monthly*medicare
-        socialSecurity=monthly*ss
-        monthly401k=perc401k*monthly
-        savings=monthly-monthlyFedTax-monthlyStateTax-rent-wifi-gasAndElec-phone-carMaint-food-tuition-gas-meds-carRegDMV--healthIns-dentalIns-eyeIns-liability-carIns-rentersIns-umbr-monthly401k
+        savings=monthly-monthlyFedTax-monthlyStateTax-rent-wifi-gasAndElec-phone-carMaint-food-tuition-gas-meds-carRegDMV-healthIns-dentalIns-eyeIns-liability-carIns-rentersIns-umbr-monthly401k-medicareMonthly-ssMonthly-caUnemploymentMonthly
         return savings
     
